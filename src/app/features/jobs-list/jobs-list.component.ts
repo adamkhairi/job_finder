@@ -10,7 +10,7 @@ import { JobsSearchService } from "./jobs-search.service";
 import { map, pipe } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { updateSignal } from "../../utils";
-import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
+import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: "app-jobs-list",
@@ -25,16 +25,16 @@ export class JobsListComponent implements AfterViewInit {
   }
   service = inject(JobsSearchService);
   destroyRef = inject(DestroyRef);
-  form = {
-    query: "Angular",
-  };
+  form = new FormGroup ({
+    query: new FormControl<string>("Angular"),
+  });
 
   jobs = signal<any[]>([]);
 
   search() {
-    const query = this.form.query;
+    const query = this.form.value.query ?? 'Angular';
     this.service
-      .searchJobs(query)
+      .searchJobs(query+ ' Maroc')
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         // map((s) => ({

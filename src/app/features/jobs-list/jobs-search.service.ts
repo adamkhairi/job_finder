@@ -13,8 +13,11 @@ export class JobsSearchService {
   private searchEngineId = environment.GOOGLE_SEARCH_ENGINE_ID;
 
   searchJobs(query: string) {
-    const url1 = `https://www.googleapis.com/customsearch/v1?key=<span class="math-inline">${this.apiKey}&cx=</span>${this.searchEngineId}&q=${encodeURIComponent(query)}`;
-    const url = `https://customsearch.googleapis.com/customsearch/v1?q=${query}&cx=${this.searchEngineId}&key=${this.apiKey}`; // &siteSearch=linkedin;
+    const searchEngineId = this.searchEngineId;
+    const apiKey = this.apiKey;
+    const exclude = 'Java';
+    const dateRestrict = 'm[1]'
+    const url = `https://customsearch.googleapis.com/customsearch/v1?q=${query}&cx=${searchEngineId}&key=${apiKey}&excludeTerms=${exclude}&dateRestrict=${dateRestrict}`; // &siteSearch=linkedin;
     return this.http.get<any>(url).pipe(map((s) => s.items));
   }
 }

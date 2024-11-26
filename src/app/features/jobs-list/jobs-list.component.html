@@ -1,9 +1,18 @@
-<input [(ngModel)]="form.query" placeholder="Search for jobs" />
-<button (click)="search()">Search</button>
+<form (submit)="search()" [formGroup]="form">
+  <input formControlName="query" placeholder="Search for jobs" />
+  <button type="submit">Search</button>
+</form>
 <ul>
   @for (job of jobs(); track job.title) {
-    <li>
-      {{ job.title }} - <a [href]="job.link" target="_blank">{{ job.link }}</a>
-    </li>
+  <li>
+    <div class=" mt-5">
+      Title : <span>{{ job.title }}</span>
+    </div>
+    <div>
+      TLDR : <span>{{ job.htmlSnippet }}</span>
+    </div>
+
+    Link : <a [href]="job.link" target="_blank">{{ job.link }}</a>
+  </li>
   }
 </ul>
