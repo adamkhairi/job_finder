@@ -1,7 +1,14 @@
 import { inject, Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { map, tap } from "rxjs";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Observable } from "rxjs";
 import { environment } from "../../../environment/environment";
+
+export interface SearchResponse {
+  items: any[];
+  searchInformation: {
+    totalResults: string;
+  };
+}
 
 @Injectable({
   providedIn: "root",
@@ -11,13 +18,27 @@ export class JobsSearchService {
 
   private apiKey = environment.GOOGLE_API_KEY;
   private searchEngineId = environment.GOOGLE_SEARCH_ENGINE_ID;
+  private readonly maxResultsPerPage = 10;
 
-  searchJobs(query: string) {
-    const searchEngineId = this.searchEngineId;
-    const apiKey = this.apiKey;
-    const exclude = 'Java';
-    const dateRestrict = 'm[1]'
-    const url = `https://customsearch.googleapis.com/customsearch/v1?q=${query}&cx=${searchEngineId}&key=${apiKey}&excludeTerms=${exclude}&dateRestrict=${dateRestrict}`; // &siteSearch=linkedin;
-    return this.http.get<any>(url).pipe(map((s) => s.items));
+  searchJobs(query: string, page: number): Observable<SearchResponse> {
+    const start = ((page - 1) * this.maxResultsPerPage) + 1;
+    const q = `${query} Maroc`;
+
+    const params = new HttpParams({
+      fromObject: {
+        q: q,
+        cx: this.searchEngineId,
+        key: this.apiKey,
+        excludeTerms: 'Java',
+        dateRestrict: 'w[3]',
+        start: start.toString(),
+        sort: 'date',
+        //num: this.maxResultsPerPage.toString()
+      }
+    });
+
+    const url = 'https://customsearch.googleapis.com/customsearch/v1';
+
+    return this.http.get<SearchResponse>(url, { params });
   }
 }
