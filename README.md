@@ -1,6 +1,6 @@
 # Job Finder
 
-Job Finder is an Angular-based web application that helps users search for job listings. It utilizes the Google Custom Search API to fetch job postings and presents them in an easy-to-navigate interface.
+Job Finder is an Angular-based web application that helps users search for job listings in Linkedin and Indeed. It utilizes the Google Custom Search API to fetch job postings and presents them in an easy-to-navigate interface.
 
 ## Features
 
