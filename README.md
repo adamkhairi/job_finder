@@ -37,7 +37,7 @@ Job Finder is an Angular-based web application that helps users search for job l
    ```
 
 3. Set up environment variables:
-   Create a `src/environment/environment.ts` file with your Google API key and Search Engine ID:
+   Create a `src/environments/environment.ts` file with your Google API key and Search Engine ID:
    ```typescript
    export const environment = {
      production: false,
