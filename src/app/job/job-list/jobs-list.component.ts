@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, computed, DestroyRef, inject, signal, } from "@angular/core";
-import { JobsSearchService } from "./jobs-search.service";
+import { JobsSearchService } from "../services/jobs-search.service";
 import { finalize } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { JobItemComponent } from "./job-item/job-item.component";
+import { JobItemComponent } from "../job-item/job-item.component";
 
 interface PaginationState {
   currentPage: number;
@@ -12,7 +12,7 @@ interface PaginationState {
 }
 
 @Component({
-  selector: "app-jobs-list",
+  selector: "app-job-list",
   imports: [ReactiveFormsModule, FormsModule, CommonModule, JobItemComponent],
   templateUrl: "./jobs-list.component.html",
   styleUrls: ["./jobs-list.component.scss"],
